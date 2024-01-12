@@ -14,10 +14,7 @@
             </div>
             <div class="mb-3">
                 <label for="body">Body</label>
-                <textarea type="text" class="form-control @error('body') is-invalid @enderror" name="body" id="body" required
-                    maxlength="200" minlength="3">
-                    {{ old('body') }}
-                </textarea>
+                <textarea type="text" class="form-control @error('body') is-invalid @enderror" name="body" id="body">{{ old('body') }}</textarea>
                 @error('body')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
