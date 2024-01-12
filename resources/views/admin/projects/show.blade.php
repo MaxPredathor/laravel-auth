@@ -8,9 +8,10 @@
         <form class="d-inline-block" action="{{ route('admin.projects.destroy', $project->id) }}" method="POST">
             @csrf
             @method('DELETE')
-            <button class="btn btn-danger" type="submit">Delete</button>
+            <button class="btn btn-danger cancel-button" data-item-title="{{ $project->title }}" type="submit">Delete</button>
         </form>
         <button class="btn btn-warning d-inline-block"><a class="text-black text-decoration-none"
                 href="{{ route('admin.projects.index') }}">Back</a></button>
     </section>
+    @include('partials.modal_delete')
 @endsection

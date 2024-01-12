@@ -10,8 +10,8 @@
         @endif
 
         @foreach ($projects as $project)
-            <div class="mt-2 d-block position-relative border border-2 p-3 rounded"
-                href="{{ route('admin.projects.show', $project->id) }}">
+            <div href="{{ route('admin.projects.show', $project->id) }}"
+                class="mt-2 d-block position-relative border border-success border-2 p-3 rounded fw-bold text-white bg-dark">
                 {{ $project->title }}
                 <a href="{{ route('admin.projects.show', $project->id) }}">
                     <i class="fa-solid fa-eye position-absolute top-25 end-0 text-success me-1 fs-5"></i>
@@ -20,13 +20,20 @@
                     <i class="fa-solid fa-pen-to-square position-absolute top-25 text-primary me-1 fs-5"
                         style="right: 25px"></i>
                 </a>
-                <a href="{{ route('admin.projects.destroy', $project->id) }}" class="text-danger">
-                    <i class="fa-solid fa-trash position-absolute top-25 text-danger me-1 fs-5" style="right: 50px"></i>
-                </a>
+                <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST"
+                    class="position-absolute me-1" style="right: 52px; top: 16px">
+                    @csrf
+                    @method('DELETE')
+                    <a href="{{ route('admin.projects.destroy', $project->id) }}" class="text-danger cancel-button"
+                        data-item-title="{{ $project->title }}" type="submit">
+                        <i class="fa-solid fa-trash text-danger fs-5"></i>
+                    </a>
+                </form>
             </div>
         @endforeach
         <button class="btn btn-primary mt-3">
             <a class="text-white text-decoration-none" href="{{ route('admin.projects.create') }}">Create</a>
         </button>
     </section>
+    @include('partials.modal_delete')
 @endsection
