@@ -31,8 +31,19 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-success">Submit</button>
-            <button type="reset" class="btn btn-primary">Reset</button>
+            <h5>Techologies</h5>
+            @foreach ($technologies as $item)
+                <div class="d-inline-block m-3">
+                    <input type="checkbox" name="technologies[]" value="{{ $item['image'] }}"
+                        @if (isset($technologies) && str_contains($project->technologies, $item['image'])) checked @endif>
+                    <img style="width: 50px" src="{{ $item['image'] }}" alt="{{ $item['name'] }}">
+                </div>
+            @endforeach
+            <div>
+                <button type="submit" class="btn btn-success">Submit</button>
+                <button type="reset" class="btn btn-primary">Reset</button>
+            </div>
+
         </form>
     </section>
 @endsection

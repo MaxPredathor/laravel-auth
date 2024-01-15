@@ -26,8 +26,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        $technologies = config()
-        return view('admin.projects.create');
+        $technologies = config('technologies.key');
+        return view('admin.projects.create', compact('technologies'));
     }
 
     /**
@@ -45,6 +45,7 @@ class ProjectController extends Controller
             $formData['image'] = $path;
             // dd($path);
         }
+        $formData['technologies'] = implode(',', $request->input('technologies'));
         $project = Project::create($formData);
         return redirect()->route('admin.projects.show', $project->slug);
     }
@@ -54,6 +55,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
+        $project->technologies = explode(',', $project->technologies);
         return view('admin.projects.show', compact('project'));
     }
 
@@ -62,7 +64,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $technologies = config('technologies.key');
+        return view('admin.projects.edit', compact('project', 'technologies'));
     }
 
     /**
@@ -86,6 +89,7 @@ class ProjectController extends Controller
             $path = Storage::put('uploads', $request->image);
             $formData['image'] = $path;
         }
+        $formData['technologies'] = implode(',', $request->input('technologies'));
         $project->update($formData);
         return redirect()->route('admin.projects.show', $project->slug);
     }
