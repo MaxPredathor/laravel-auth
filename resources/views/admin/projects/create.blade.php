@@ -2,7 +2,7 @@
 @section('content')
     <section class="container">
         <h1>Projects Create</h1>
-        <form action="{{ route('admin.projects.store') }}" method="POST">
+        <form action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="title">Title</label>
@@ -19,14 +19,21 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+            <div>
+                <img id="uploadPreview" src="https://via.placeholder.com/300x200" alt="Placeholder">
+            </div>
             <div class="mb-3">
                 <label for="image">Image</label>
-                <input type="url" class="form-control @error('image') is-invalid @enderror" name="image"
+                <input type="file" class="form-control @error('image') is-invalid @enderror" name="image"
                     id="image">
                 @error('image')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+            @foreach (config($technologies) as $item)
+                <div class="w-50">{{ item->name }}</div>
+                <img src="{{ item->image }}" alt="">
+            @endforeach
             <button type="submit" class="btn btn-success">Submit</button>
             <button type="reset" class="btn btn-primary">Reset</button>
         </form>
