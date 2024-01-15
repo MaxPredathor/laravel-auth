@@ -30,10 +30,10 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            @foreach (config($technologies) as $item)
+            {{-- @foreach (config($technologies) as $item)
                 <div class="w-50">{{ item->name }}</div>
                 <img src="{{ item->image }}" alt="">
-            @endforeach
+            @endforeach --}}
             <button type="submit" class="btn btn-success">Submit</button>
             <button type="reset" class="btn btn-primary">Reset</button>
         </form>

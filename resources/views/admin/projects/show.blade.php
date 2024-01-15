@@ -5,8 +5,8 @@
         <p>{!! $project->body !!}</p>
         <img class="w-50" src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }}">
         <button class="btn btn-primary d-inline-block"><a class="text-white text-decoration-none"
-                href="{{ route('admin.projects.edit', $project->id) }}">Edit</button>
-        <form class="d-inline-block" action="{{ route('admin.projects.destroy', $project->id) }}" method="POST">
+                href="{{ route('admin.projects.edit', $project->slug) }}">Edit</button>
+        <form class="d-inline-block" action="{{ route('admin.projects.destroy', $project->slug) }}" method="POST">
             @csrf
             @method('DELETE')
             <button class="btn btn-danger cancel-button" data-item-title="{{ $project->title }}"

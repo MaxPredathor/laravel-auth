@@ -45,7 +45,7 @@ class ProjectController extends Controller
             // dd($path);
         }
         $project = Project::create($formData);
-        return redirect()->route('admin.projects.show', $project->id);
+        return redirect()->route('admin.projects.show', $project->slug);
     }
 
     /**
@@ -70,7 +70,12 @@ class ProjectController extends Controller
     public function update(UpdateProjectRequest $request, Project $project)
     {
         $formData = $request->validated();
-        $slug = Str::slug($formData['title'], '-');
+        if ($project->title !== $formData['title']) {
+            $slug = Project::getSlug($formData['title']);
+        }else{
+            $slug = $project->slug;
+        }
+        // $slug = Str::slug($formData['title'], '-');
         $formData['slug'] = $slug;
         $formData['user_id'] = $project->user_id;
         if ($request->hasFile('image')) {
@@ -81,7 +86,7 @@ class ProjectController extends Controller
             $formData['image'] = $path;
         }
         $project->update($formData);
-        return redirect()->route('admin.projects.show', $project->id);
+        return redirect()->route('admin.projects.show', $project->slug);
     }
 
     /**

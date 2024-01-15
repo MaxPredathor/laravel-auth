@@ -23,7 +23,7 @@ buttons.forEach((button) => {
 
 const previewImage = document.getElementById("image");
 previewImage.addEventListener("change", (event) => {
-    const ofReader = FileReader();
+    const ofReader = new FileReader();
     ofReader.readAsDataURL(previewImage.files[0]);
 
     ofReader.onload = function (oFREvent) {

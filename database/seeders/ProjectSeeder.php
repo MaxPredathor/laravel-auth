@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Project;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectSeeder extends Seeder
 {
@@ -24,5 +25,16 @@ class ProjectSeeder extends Seeder
             $newProject->slug = Str::slug($project['title'], '-');
             $newProject->save();
         }
+    }
+
+    public static function storeimage($image, $name)
+    {
+       $url = $image;
+       $contents = file_get_contents($url);
+
+       $name = Str::slug($name, '-') . '.jpg';
+       $path = 'images/' . $name;
+       Storage::put('images/' . $name, $contents);
+       return $path;
     }
 }
