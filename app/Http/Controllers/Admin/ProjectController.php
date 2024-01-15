@@ -26,6 +26,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        $technologies = config()
         return view('admin.projects.create');
     }
 
